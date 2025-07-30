@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Learning Platform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+    }
+    header {
+      background: #007BFF;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    .container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .course-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .course {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .course:hover {
+      transform: translateY(-5px);
+    }
+    .course img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .course h3 {
+      margin: 10px 0;
+    }
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #courseDetail, #enrollSection {
+      display: none;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    form input, form button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+    }
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Online Learning Platform</h1>
+  <nav>
+    <a href="#" onclick="showHome()">Home</a>
+    <a href="#" onclick="showEnroll()">Enroll</a>
+  </nav>
+</header>
+
+<div class="container">
+  <!-- Home (Course List) -->
+  <div id="homeSection">
+    <h2>Available Courses</h2>
+    <div class="course-list">
+      <div class="course" onclick="showCourse('Web Development', 'Learn HTML, CSS, and JavaScript.')">
+        <img src="https://via.placeholder.com/250x150?text=Web+Development" alt="Web Dev">
+        <h3>Web Development</h3>
+        <p>Learn to build modern websites.</p>
+        <button>View Details</button>
+      </div>
+      <div class="course" onclick="showCourse('Python Programming', 'Master Python from basics to advanced.')">
+        <img src="https://via.placeholder.com/250x150?text=Python" alt="Python">
+        <h3>Python Programming</h3>
+        <p>Start coding with Python.</p>
+        <button>View Details</button>
+      </div>
+      <div class="course" onclick="showCourse('Data Science', 'Learn data analysis and visualization.')">
+        <img src="https://via.placeholder.com/250x150?text=Data+Science" alt="Data Science">
+        <h3>Data Science</h3>
+        <p>Analyze and visualize data.</p>
+        <button>View Details</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Course Detail -->
+  <div id="courseDetail">
+    <h2 id="courseTitle"></h2>
+    <p id="courseDesc"></p>
+    <button onclick="showEnroll()">Enroll Now</button>
+    <button onclick="showHome()">Back</button>
+  </div>
+
+  <!-- Enroll Form -->
+  <div id="enrollSection">
+    <h2>Enroll in a Course</h2>
+    <form id="enrollForm">
+      <input type="text" id="studentName" placeholder="Your Name" required>
+      <input type="email" id="studentEmail" placeholder="Your Email" required>
+      <input type="text" id="selectedCourse" placeholder="Course Name" required>
+      <button type="submit">Submit</button>
+    </form>
+    <p id="enrollMsg"></p>
+    <button onclick="showHome()">Back to Home</button>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Online Learning Platform</p>
+</footer>
+
+<script>
+  const homeSection = document.getElementById("homeSection");
+  const courseDetail = document.getElementById("courseDetail");
+  const enrollSection = document.getElementById("enrollSection");
+  const courseTitle = document.getElementById("courseTitle");
+  const courseDesc = document.getElementById("courseDesc");
+  const selectedCourse = document.getElementById("selectedCourse");
+
+  function showHome() {
+    homeSection.style.display = "block";
+    courseDetail.style.display = "none";
+    enrollSection.style.display = "none";
+  }
+
+  function showCourse(title, desc) {
+    courseTitle.textContent = title;
+    courseDesc.textContent = desc;
+    selectedCourse.value = title;
+    homeSection.style.display = "none";
+    courseDetail.style.display = "block";
+    enrollSection.style.display = "none";
+  }
+
+  function showEnroll() {
+    homeSection.style.display = "none";
+    courseDetail.style.display = "none";
+    enrollSection.style.display = "block";
+  }
+
+  document.getElementById("enrollForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const name = document.getElementById("studentName").value;
+    const email = document.getElementById("studentEmail").value;
+    const course = document.getElementById("selectedCourse").value;
+
+    document.getElementById("enrollMsg").textContent = 
+      "Thank you, " + name + "! You have successfully enrolled in " + course + ".";
+    document.getElementById("enrollForm").reset();
+  });
+
+  // Show home by default
+  showHome();
+</script>
+
+</body>
+</html>
